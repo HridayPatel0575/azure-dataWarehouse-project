@@ -1,0 +1,17 @@
+{
+	"name": "SalesDWH",
+	"properties": {
+		"content": {
+			"query": "-- CREATE MASTER KEY ENCRYPTION BY PASSWORD ='mitulrpatel@77'\n\n\n-- CREATE DATABASE SCOPED CREDENTIAL hricrds\n-- WITH IDENTITY = 'Managed Identity'\nDROP EXTERNAL DATA SOURCE silver_source\nCREATE EXTERNAL DATA SOURCE silver_source\nWITH(\n    LOCATION ='https://dwhhriday.dfs.core.windows.net/silver/',\n    CREDENTIAL = hricrds\n)\n\nCREATE EXTERNAL FILE FORMAT parquet_format\nWITH(\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n)\n\nCREATE EXTERNAL FILE FORMAT delta\nWITH(\n    FORMAT_TYPE = DELTA\n)\n\nCREATE EXTERNAL FILE FORMAT parquet\nWITH\n(\n    FORMAT_TYPE = PARQUET\n);\n\nCREATE EXTERNAL DATA SOURCE gold_source\nWITH(\n    LOCATION ='https://dwhhriday.dfs.core.windows.net/gold/',\n    CREDENTIAL = hricrds\n)\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "SalesDWH",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
