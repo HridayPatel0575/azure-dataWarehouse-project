@@ -1,0 +1,17 @@
+{
+	"name": "Dimensions",
+	"properties": {
+		"content": {
+			"query": "IF NOT EXISTS (\n    SELECT * \n    FROM sys.tables t JOIN sys.schemas s ON t.schema_id = s.schema_id WHERE t.name = 'DimCustomer'AND s.name = 'gold')\n\nCREATE EXTERNAL TABLE gold.DimCustomer\nWITH\n(\n    LOCATION = 'DimCustomer',\n    DATA_SOURCE = gold_source,\n    FILE_FORMAT = parquet\n)\nAS\nSELECT\n    DISTINCT\n    CustomerID,\n    CustomerName,\n    CustomerEmail,\n    Domain,\n    ROW_NUMBER() OVER (ORDER BY CustomerID) AS DimCustomerKey\nFROM\n    silver.SilverTable\n\n\n\n\n\n\n\n\n\n\n\nIF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s \nON t.schema_id = s.schema_id WHERE t.name = 'DimProduct'AND s.name = 'gold')\n\nCREATE EXTERNAL TABLE gold.DimProduct\nWITH\n(\n    LOCATION = 'DimProduct',\n    DATA_SOURCE = gold_source,\n    FILE_FORMAT = parquet\n)\nAS\nSELECT\n    DISTINCT\n    ProductID,\n    ProductName,\n    ProductCategory,\n    ROW_NUMBER() OVER (ORDER BY CustomerID) AS DimProductKey\nFROM\n    silver.SilverTable\n    \n\n\n\n\n\n\n\n\nIF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s \nON t.schema_id = s.schema_id WHERE t.name = 'DimGeography'AND s.name = 'gold')\n\nCREATE EXTERNAL TABLE gold.DimGeography\nWITH\n(\n    LOCATION = 'DimGeography',\n    DATA_SOURCE = gold_source,\n    FILE_FORMAT = parquet\n)\nAS\nSELECT\n    DISTINCT\n    RegionID,\n    Country,\n    ROW_NUMBER() OVER (ORDER BY CustomerID) AS DimGeographyKey\nFROM\n    silver.SilverTable\n\n\n\n\n\n\n\n\n\n\nIF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s \nON t.schema_id = s.schema_id WHERE t.name = 'DimOrder'AND s.name = 'gold')\n\nCREATE EXTERNAL TABLE gold.DimOrder\nWITH\n(\n    LOCATION = 'DimOrder',\n    DATA_SOURCE = gold_source,\n    FILE_FORMAT = parquet\n)\nAS\nSELECT\n    OrderID,\n    CustomerName,\n    CustomerID,\n    CustomerEmail,\n    ProductID,\n    ProductName,\n    ProductCategory,\n    Domain\n    RegionID,\n    Country,\n    ROW_NUMBER() OVER (ORDER BY CustomerID) AS DimOrderKey\nFROM\n    silver.SilverTable",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "SalesDWH",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
