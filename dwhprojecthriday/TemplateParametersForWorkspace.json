@@ -8,6 +8,12 @@
 		"Externallake_accountKey": {
 			"value": ""
 		},
+		"Silver_password": {
+			"value": ""
+		},
+		"SilverTable_password": {
+			"value": ""
+		},
 		"dwhprojectLink_accountKey": {
 			"value": ""
 		},
@@ -16,6 +22,24 @@
 		},
 		"Externallake_properties_typeProperties_url": {
 			"value": "https://dwhhriday.dfs.core.windows.net/"
+		},
+		"Silver_properties_typeProperties_server": {
+			"value": "dwhprojecthriday.sql.azuresynapse.net"
+		},
+		"Silver_properties_typeProperties_database": {
+			"value": "SalesDataWarehouse"
+		},
+		"Silver_properties_typeProperties_userName": {
+			"value": "hriday"
+		},
+		"SilverTable_properties_typeProperties_server": {
+			"value": "dwhprojecthriday-ondemand.sql.azuresynapse.net"
+		},
+		"SilverTable_properties_typeProperties_database": {
+			"value": "SalesDWH"
+		},
+		"SilverTable_properties_typeProperties_userName": {
+			"value": "hriday"
 		},
 		"dwhprojectLink_properties_typeProperties_url": {
 			"value": "https://dwhhriday.dfs.core.windows.net/"
